@@ -1,0 +1,17 @@
+{
+  "suggest.floatEnable": true,
+  "coc.preferences.formatOnSaveFiletypes": ["vue"],
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": false,
+  "python.linting.pylintEnabled": true,
+  "stylusSupremacy.insertBraces": false,
+  "stylusSupremacy.insertColons": false,
+  "stylusSupremacy.insertNewLineAroundBlocks": true,
+  "stylusSupremacy.insertNewLineAroundImports": true,
+  "stylusSupremacy.insertNewLineAroundProperties": true,
+  "stylusSupremacy.insertSemicolons": false,
+  "vetur.format.defaultFormatter.css": "stylus-supremacy",
+  "vetur.validation.style": false,
+  "rust-analyzer.updates.channel": "nightly",
+  "rust-analyzer.updates.checkOnStartup": false
+}

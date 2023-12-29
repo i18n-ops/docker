@@ -1,0 +1,9 @@
+fire
+tmuxp
+ipython
+yapf
+pynvim
+xonsh
+ruff
+python-language-server
+pynvim @ git+https://github.com/neovim/pynvim

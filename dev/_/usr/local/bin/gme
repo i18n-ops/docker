@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+msg="$@"
+
+if [ -z "$msg" ]; then
+  echo "need commit msg"
+  exit 1
+fi
+
+msg=$(clitran $msg)
+
+branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' |awk -F' ' '{print $2}'`
+
+root=$(git rev-parse --show-toplevel)
+
+cd $root
+
+set -ex
+
+git pull origin $branch
+
+if [ "$branch" != "main" ]; then
+git add . && git commit -m "$msg"  || true
+git pull origin main
+git merge main
+hash=$(git log --format=%H -1 main)
+git reset --soft $hash
+git add . && git commit -m "$msg"  || true
+git push -f origin $branch
+fi
+
+git checkout main
+git merge $branch
+git push --recurse-submodules=on-demand --tag --set-upstream origin main
+git checkout $branch

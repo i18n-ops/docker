@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ex
+name=$(echo "${@:1}" | sed 's/^.*\.\///'  | awk '{print $1}' | rev | cut -d'.' -f2- | rev | tr '/' '.')
+log=/var/log/crontab/$(basename $1).$name
+cmd="\"${@:2}\""
+bash -c "source /etc/profile && cd $1 && exec timeout 24h direnv exec . bash -c $cmd" > $log.log 2>$log.err.log
