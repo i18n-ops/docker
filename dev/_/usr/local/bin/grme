@@ -18,7 +18,8 @@ git push --set-upstream origin $branch
 if [ "$branch" != "main" ]; then
 git add . && git commit -m "$msg"  || true
 git fetch origin main
-git checkout -b main origin/main
+git checkout main || git checkout -b main origin/main
+git merge origin/main || true
 hash=$(git log --format=%H -2 main|tail -1)
 git reset --soft $hash
 git add . && git commit -m "$msg"  || true
