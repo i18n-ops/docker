@@ -21,15 +21,16 @@ git pull origin $branch
 
 if [ "$branch" != "main" ]; then
 git add . && git commit -m "$msg"  || true
-git pull origin main
-git merge main
+git fetch origin main
+git merge origin/main || true
 hash=$(git log --format=%H -1 main)
 git reset --soft $hash
 git add . && git commit -m "$msg"  || true
 git push -f origin $branch
 fi
 
-git checkout main
+git checkout main || git checkout -b main origin/main
+git merge origin/main || true
 git merge $branch
 git push --recurse-submodules=on-demand --tag --set-upstream origin main
 git checkout $branch
