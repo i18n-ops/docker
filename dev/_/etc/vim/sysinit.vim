@@ -128,7 +128,7 @@ endif
 "
 " let g:formatters_python = ['yapf']
 "
-" let g:formatters_lua = ['stylua']
+let g:formatters_lua = ['stylua']
 "
 " let g:formatdef_biome = '"biome format"'
 " let g:formatters_js= ['biome']
@@ -136,17 +136,17 @@ endif
 " " let g:formatters_javascript = ['biome']
 " " autocmd BufWritePost *.{js,mjs} :silent! !bun x @biomejs/biome format --write %
 "
-" let g:formatters_pug= ['prettier']
-" let g:formatters_toml= ['prettier']
+let g:formatters_pug= ['prettier']
+let g:formatters_toml= ['prettier']
 "
-" let g:formatdef_gopfmt = '"gop fmt"'
-" let g:formatters_go= ['gopfmt']
+let g:formatdef_gopfmt = '"gop fmt"'
+let g:formatters_go= ['gopfmt']
 "
-" let g:formatdef_vfmt = '"v fmt -w"'
-" let g:formatters_vlang= ['vfmt']
+let g:formatdef_vfmt = '"v fmt -w"'
+let g:formatters_vlang= ['vfmt']
 "
-" let g:formatdef_nim = '"nimpretty"'
-" let g:formatters_nim= ['nim']
+let g:formatdef_nim = '"nimpretty"'
+let g:formatters_nim= ['nim']
 
 "let g:rustfmt_autosave = 1
 "let g:rust_recommended_style = 0
