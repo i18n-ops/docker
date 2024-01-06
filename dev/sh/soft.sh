@@ -15,12 +15,12 @@ curl --connect-timeout 2 -m 4 -s https://t.co >/dev/null || GFW=1
 
 apt-get install -y glances unzip build-essential musl-tools g++ git bat jq libffi-dev zlib1g-dev liblzma-dev libssl-dev pkg-config git-lfs libreadline-dev libbz2-dev libsqlite3-dev libzstd-dev zsh protobuf-compiler software-properties-common wget cmake autoconf automake libtool clang sd
 
-arch=$(uname -m)
+# arch=$(uname -m)
 
-if [[ $arch == "i686" ]] || [[ $arch == "x86_64" ]]; then
-  apt-get install -y mold
-  export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=/usr/bin/mold"
-fi
+# if [[ $arch == "i686" ]] || [[ $arch == "x86_64" ]]; then
+apt-get install -y mold
+export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=/usr/bin/mold"
+# fi
 
 chsh -s /bin/zsh root
 apt remove --purge --assume-yes snapd gnome-software-plugin-snap
