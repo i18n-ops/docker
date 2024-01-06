@@ -27,6 +27,7 @@ update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 1
 update-alternatives --set editor /usr/bin/nvim
 curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &
 
+bun i -g @biomejs/biome
 wait
 
 eval $(rtx env)
