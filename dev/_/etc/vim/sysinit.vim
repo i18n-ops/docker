@@ -23,6 +23,7 @@ source /etc/vim/plug.vim
 call plug#begin('/etc/vim/plug')
 Plug 'Exafunction/codeium.vim'
 Plug 'yegappan/mru'        " 最近打开过的文件
+" CocCommand workspace.showOutput Biome 可以看到调试的日志
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'TheZoq2/neovim-auto-autoread'
 Plug 'jacoborus/tender.vim' " A 24bit colorscheme for Vim, Airline and Lightline
@@ -51,7 +52,7 @@ Plug 'urwork/vim-indent-guides'
 Plug 'vim-scripts/ctags.vim'                     " 生成Tag，跟TagList搭配
 Plug 'vim-scripts/mako.vim',{'for':'mako'}     " mako语法高亮
 Plug 'vim-scripts/taglist.vim'        " 显示Tag
-Plug 'w0rp/ale'                       " 异步语法检查
+" Plug 'w0rp/ale'                       " 异步语法检查
 
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/async.vim'
@@ -87,12 +88,11 @@ autocmd BufWritePost *.{md,mdt} :edit
 autocmd BufWritePost *.{md,mdt} :redraw!
 
 " au BufWritePost *.{lua} :Autoformat
-au BufWritePre *.{rs,lua,sh,h,cpp,c,v,proto,json,go,html,scss,css,dart,toml,pug,py} :Autoformat
+au BufWritePre *.{rs,lua,sh,h,cpp,c,v,proto,json,go,html,scss,css,dart,toml,pug} :Autoformat
 
 
-autocmd BufWritePost *.{js,mjs} :silent! !bun x @biomejs/biome format --write %
-autocmd BufWritePost *.{js,mjs} :edit
-autocmd BufWritePost *.{js,mjs} :redraw!
+" autocmd BufWritePost *.{js,mjs} :edit
+" autocmd BufWritePost *.{js,mjs} :redraw!
 
 " autocmd BufWritePost *.{rs} :silent! !rustfmt %
 " autocmd BufWritePost *.{rs} :edit
@@ -116,32 +116,37 @@ endif
 " Put this in vimrc or a plugin file of your own.
 " " After this is configured, :ALEFix will try and fix your JS code with
 " ESLint.
-let g:ale_linters = {
-\  'go': ['gometalinter', 'gofmt'],
-\  'python': ['ruff'],
-"\  'javascript': ['eslint'],
-\}
-
-let b:ale_fixers = {
-\ '*': ['remove_trailing_lines'],
-\  'python':['ruff']
-\}
-
-let g:formatters_python = ['yapf']
-
-let g:formatters_lua = ['stylua']
-
-let g:formatters_pug= ['prettier']
-let g:formatters_toml= ['prettier']
-
-let g:formatdef_gopfmt = '"gop fmt"'
-let g:formatters_go= ['gopfmt']
-
-let g:formatdef_vfmt = '"v fmt -w"'
-let g:formatters_vlang= ['vfmt']
-
-let g:formatdef_nim = '"nimpretty"'
-let g:formatters_nim= ['nim']
+" let g:ale_linters = {
+" \  'go': ['gometalinter', 'gofmt'],
+" \  'python': ['ruff'],
+" \}
+"
+" let b:ale_fixers = {
+" \ '*': ['remove_trailing_lines'],
+" \  'python':['ruff'],
+" \}
+"
+" let g:formatters_python = ['yapf']
+"
+" let g:formatters_lua = ['stylua']
+"
+" let g:formatdef_biome = '"biome format"'
+" let g:formatters_js= ['biome']
+" let g:formatters_mjs= ['biome']
+" " let g:formatters_javascript = ['biome']
+" " autocmd BufWritePost *.{js,mjs} :silent! !bun x @biomejs/biome format --write %
+"
+" let g:formatters_pug= ['prettier']
+" let g:formatters_toml= ['prettier']
+"
+" let g:formatdef_gopfmt = '"gop fmt"'
+" let g:formatters_go= ['gopfmt']
+"
+" let g:formatdef_vfmt = '"v fmt -w"'
+" let g:formatters_vlang= ['vfmt']
+"
+" let g:formatdef_nim = '"nimpretty"'
+" let g:formatters_nim= ['nim']
 
 "let g:rustfmt_autosave = 1
 "let g:rust_recommended_style = 0
@@ -404,7 +409,7 @@ let g:ycm_confirm_extra_conf = 0
 "            autopep8自动格式化设置
 "
 """""""""""""""""""""""""""""""""""""""
-let g:autopep8_disable_show_diff=1
+" let g:autopep8_disable_show_diff=1
 
 """""""""""""""""""""""""""""""""""""""
 "
@@ -551,9 +556,9 @@ hi VisualNOS ctermbg=238
 hi WarningMsg ctermfg=231 ctermbg=238 cterm=bold
 hi WildMenu ctermfg=81 ctermbg=16
 hi Comment ctermfg=59
-hi ALEError ctermfg=9 ctermbg=235
-hi ALEWarning ctermfg=11 ctermbg=235
-hi ALEInfo   ctermfg=14 ctermbg=235
+" hi ALEError ctermfg=9 ctermbg=235
+" hi ALEWarning ctermfg=11 ctermbg=235
+" hi ALEInfo   ctermfg=14 ctermbg=235
 hi CocUnusedHighlight ctermfg=247 ctermbg=234
 highlight nonText ctermbg=NONE
 
