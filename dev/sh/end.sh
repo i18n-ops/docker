@@ -27,10 +27,11 @@ update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 1
 update-alternatives --set editor /usr/bin/nvim
 curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &
 
+eval $(rtx env)
+
 bun i -g @biomejs/biome
 wait
 
-eval $(rtx env)
 vi -E -u /etc/vim/sysinit.vim +PlugInstall +qa
 vi -u /etc/vim/sysinit.vim +UpdateRemotePlugins +qa
 vi +'CocInstall -sync coc-biome coc-rust-analyzer coc-json coc-yaml coc-css coc-python coc-vetur coc-svelte' +qa
