@@ -51,13 +51,22 @@ CARGO_INSTALL="cargo binstall --no-confirm"
 
 curl -sSf https://$RS | sh -s -- -y --no-modify-path --default-toolchain nightly
 
+bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
+
 source $CARGO_HOME/env
 
 cargo install --root /usr/local --git https://github.com/3tifork/ripgrep.git
 
 cargo install cargo-binstall
 
-$CARGO_INSTALL --root /usr/local stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli wasm-pack eza atuin watchexec-cli fd-find
+cargo_install() {
+  for i in "$@"; do
+    $CARGO_INSTALL --root /usr/local $i
+  done
+}
+
+# 这样方便调试, 有时候 github action 会在这一步卡死
+cargo_install stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli wasm-pack eza watchexec-cli fd-find
 
 eval $(rtx env)
 
