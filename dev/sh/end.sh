@@ -29,9 +29,9 @@ curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/june
 
 export PATH=/opt/bun/bin:$PATH
 
-bun i -g @biomejs/biome @3-/prettier-pnp
-bun x @3-/prettier-pnp --pnp @prettier/plugin-pug --stdin-filepath 1.pug --log-level error
-bun x @3-/prettier-pnp --pnp prettier-plugin-toml --stdin-filepath 1.toml --log-level error
+bun i -g @biomejs/biome prettier-pnp
+bun x prettier-pnp --pnp @prettier/plugin-pug --stdin-filepath 1.pug
+bun x prettier-pnp --pnp prettier-plugin-toml --stdin-filepath 1.toml
 
 wait
 
