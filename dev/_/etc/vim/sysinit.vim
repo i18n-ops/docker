@@ -11,7 +11,6 @@ set nowritebackup
 let g:autoformat_autoindent = 0
 " 避免把 > 缩进改为4个
 let g:rust_recommended_style=0
-let g:autoformat_verbosemode=1
 
 let g:coc_data_home = '/etc/vim/coc'
 let g:coc_node_path = trim(system('rtx which node'))
@@ -136,8 +135,10 @@ let g:formatters_lua = ['stylua']
 " " let g:formatters_javascript = ['biome']
 " " autocmd BufWritePost *.{js,mjs} :silent! !bun x @biomejs/biome format --write %
 "
-let g:formatters_pug= ['prettier']
-let g:formatters_toml= ['prettier']
+let g:formatdef_pnppug = "'SLIENT=1 bun x @3-/prettier-pnp --log-level error --pnp @prettier/plugin-pug --stdin-filepath '.bufname('%')"
+let g:formatters_pug= ['pnppug']
+let g:formatdef_pnptoml = "'SLIENT=1 bun x @3-/prettier-pnp --log-level error --pnp prettier-plugin-toml --stdin-filepath '.bufname('%')"
+let g:formatters_toml= ['pnptoml']
 "
 let g:formatdef_gopfmt = '"gop fmt"'
 let g:formatters_go= ['gopfmt']
@@ -147,6 +148,9 @@ let g:formatters_vlang= ['vfmt']
 "
 let g:formatdef_nim = '"nimpretty"'
 let g:formatters_nim= ['nim']
+
+" 如果您在让格式化程序正常工作方面遇到困难，将 vim-autoformat 设置为详细模式可能会有所帮助。然后，Vim-autoformat 将在失败的格式化程序上输出错误。 g:autoformat_verbosemode 的值可以设置为 0、1 或 2。这意味着： 0：无消息输出。 1：仅输出错误信息。 2：所有消息输出。
+let g:autoformat_verbosemode=1
 
 "let g:rustfmt_autosave = 1
 "let g:rust_recommended_style = 0

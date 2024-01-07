@@ -27,7 +27,11 @@ update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 1
 update-alternatives --set editor /usr/bin/nvim
 curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &
 
-/opt/bun/bin/bun i -g @biomejs/biome
+export PATH=/opt/bun/bin:$PATH
+
+bun i -g @biomejs/biome @3-/prettier-pnp
+bun x @3-/prettier-pnp --pnp @prettier/plugin-pug --stdin-filepath 1.pug --log-level error
+bun x @3-/prettier-pnp --pnp prettier-plugin-toml --stdin-filepath 1.toml --log-level error
 
 wait
 
