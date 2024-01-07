@@ -46,7 +46,9 @@ CARGO_INSTALL="cargo install"
   export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup" &&
   git config --global url."https://mirror.ghproxy.com/https://github.com".insteadOf "https://github.com"
 
-curl -sSf https://$RS | sh -s -- -y --no-modify-path --default-toolchain nightly
+CURL="curl --connect-timeout 5 --max-time 10 --retry 9 --retry-delay 0 -sSf"
+
+$CURL https://$RS | sh -s -- -y --no-modify-path --default-toolchain nightly
 
 source $CARGO_HOME/env
 
@@ -111,7 +113,7 @@ fi
 wait
 cd ..
 
-[ -f /opt/bun/bin/bun ] || curl https://bun.sh/install | bash
+[ -f /opt/bun/bin/bun ] || $CURL https://bun.sh/install | bash
 
 cd /usr/local
 wget https://$([ $GFW ] && echo gitee.com/mirrors/fzf/raw || echo raw.githubusercontent.com/junegunn/fzf)/master/install -O fzf.install.sh
