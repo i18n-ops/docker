@@ -15,12 +15,6 @@ curl --connect-timeout 2 -m 4 -s https://t.co >/dev/null || GFW=1
 
 apt-get install -y glances unzip build-essential musl-tools g++ git bat jq libffi-dev zlib1g-dev liblzma-dev libssl-dev pkg-config git-lfs libreadline-dev libbz2-dev libsqlite3-dev libzstd-dev zsh protobuf-compiler software-properties-common wget cmake autoconf automake libtool clang sd
 
-arch=$(uname -m)
-
-if [[ $arch == "x86_64" ]]; then
-  bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
-fi
-
 apt-get install -y mold
 export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=/usr/bin/mold"
 
@@ -67,7 +61,13 @@ cargo_install() {
 }
 
 # 这样方便调试, 有时候 github action 会在这一步卡死
-cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli wasm-pack eza watchexec-cli fd-find
+cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli eza watchexec-cli fd-find
+
+arch=$(uname -m)
+
+if [[ $arch == "x86_64" ]]; then
+  cargo install wasm-pack
+fi
 
 eval $(rtx env)
 
