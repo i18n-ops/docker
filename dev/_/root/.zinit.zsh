@@ -44,3 +44,5 @@ bindkey "^A" vi-beginning-of-line
 bindkey "^E" vi-end-of-line
 
 eval "$(direnv hook zsh)"
+setopt COMBINING_CHARS
+
