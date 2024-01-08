@@ -135,7 +135,7 @@ let g:formatters_lua = ['stylua']
 " " let g:formatters_javascript = ['biome']
 " " autocmd BufWritePost *.{js,mjs} :silent! !bun x @biomejs/biome format --write %
 "
-let g:formatdef_pnppug = "'bun x prettier-pnp --quite --log-level error --pnp @prettier/plugin-pug --stdin-filepath 1.pug'"
+let g:formatdef_pnppug = "'bun x prettier-pnp --quiet --log-level error --pnp @prettier/plugin-pug --stdin-filepath 1.pug'"
 let g:formatters_pug= ['pnppug']
 let g:formatdef_pnptoml = "'bun x prettier-pnp --quiet --log-level error --pnp prettier-plugin-toml --stdin-filepath '.bufname('%')"
 let g:formatters_toml= ['pnptoml']
