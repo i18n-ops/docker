@@ -53,7 +53,7 @@ apt-get install -y \
   rsync plocate gist less util-linux apt-utils \
   htop cron bsdmainutils universal-ctags \
   direnv iputils-ping dstat zstd jq git-extras \
-  aptitude clang-format openssh-server mariadb-client
+  aptitude clang-format openssh-server mysql-client
 
 ldconfig
 

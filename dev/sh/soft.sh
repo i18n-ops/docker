@@ -36,8 +36,7 @@ if ! command -v nvim &>/dev/null; then
 fi
 
 RS=sh.rustup.rs
-# CARGO_INSTALL="cargo binstall --no-confirm"
-CARGO_INSTALL="cargo install"
+CARGO_INSTALL="cargo binstall --no-confirm"
 
 [ $GFW ] &&
   CARGO_INSTALL="cargo install" &&
@@ -54,7 +53,7 @@ source $CARGO_HOME/env
 
 cargo install --root /usr/local --git https://github.com/3tifork/ripgrep.git
 
-# cargo install cargo-binstall
+cargo install cargo-binstall
 
 cargo_install() {
   for i in "$@"; do
@@ -63,13 +62,9 @@ cargo_install() {
 }
 
 # 这样方便调试, 有时候 github action 会在这一步卡死
-cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli eza watchexec-cli fd-find
+cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli eza watchexec-cli fd-find wasm-pack
 
 arch=$(uname -m)
-
-if [[ $arch == "x86_64" ]]; then
-  cargo install wasm-pack
-fi
 
 eval $(rtx env)
 
