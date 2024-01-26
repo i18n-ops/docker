@@ -1,0 +1,28 @@
+name: dev
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'dev/**'
+      - '.github/workflows/dev.yml'
+  schedule:
+    - cron: '1 1 1 */3 *'
+
+jobs:
+  zh:
+    uses: ./.github/workflows/docker.yml
+    with:
+      name: dev
+      sh: ./gen.sh zh
+      suffix: _zh
+    secrets: inherit
+
+  en:
+    uses: ./.github/workflows/docker.yml
+    with:
+      name: dev
+      sh: ./gen.sh en
+      suffix: _en
+    secrets: inherit

@@ -1,0 +1,21 @@
+umask 022
+
+if [[ ":$LD_LIBRARY_PATH:" != *":/usr/local/lib:"* ]]; then
+  export LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
+fi
+
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin:/opt/bun/bin
+export BUN_INSTALL=/opt/bun
+export GOPATH=/usr
+export PAGER=bat
+export PNPM_HOME="/opt/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+set -o allexport
+. /etc/run_dir.sh /etc/profile.d
+set +o allexport
+
+export RTX_DATA_DIR=/opt/rtx
+export RTX_CACHE_DIR=/cache/rtx
+
+eval $(rtx env)

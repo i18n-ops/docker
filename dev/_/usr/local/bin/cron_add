@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+cd $2
+
+cronrun=/usr/local/bin/cronrun
+
+if ! [ -f "$cronrun" ]; then
+sudo rm -rf $cronrun
+sudo wget https://raw.githubusercontent.com/wactax/ops.os/main/os/usr/local/bin/cronrun -O $cronrun
+sudo chmod +x $cronrun
+fi
+
+run="${@:2}"
+job="$1 * * $cronrun $run"
+
+crontab -l | (
+  cat | grep -v -F "$run"
+  echo "$job"
+) | crontab -
+
+echo -e "\033[32mcrontab added\033[0m"
+
+crontab -l

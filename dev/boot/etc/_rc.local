@@ -1,0 +1,4 @@
+#!/usr/bin/bash -ex
+
+ulimit -c 0 && /etc/run_dir.sh /etc/rc.d && exec $(which sshd) -D -e
+

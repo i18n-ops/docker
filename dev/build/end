@@ -1,0 +1,14 @@
+#FROM ubuntu
+#COPY --from=build / /
+
+RUN <<ETO
+
+#!/usr/bin/zsh
+set -ex
+rm -rf /sh
+mkdir -p /init
+mv /root /init
+
+ETO
+
+CMD ["/etc/rc.local"]
