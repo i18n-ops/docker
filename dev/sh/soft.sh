@@ -51,6 +51,8 @@ $CURL https://$RS | sh -s -- -y --no-modify-path --default-toolchain nightly
 
 source $CARGO_HOME/env
 
+rustup component add rust-analyzer
+
 cargo install --root /usr/local --git https://github.com/3tifork/ripgrep.git
 
 cargo install cargo-binstall
