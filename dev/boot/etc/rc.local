@@ -1,0 +1,36 @@
+#!/bin/bash -ex
+
+mkdir -p /var/log/apt /var/log/supervisor /var/run/sshd /root
+
+ssh_ed25519=/root/.ssh/id_ed25519
+if [ ! -f "$ssh_ed25519" ]; then
+ssh-keygen -t ed25519 -P "" -f $ssh_ed25519
+fi
+
+rsync -av --ignore-existing /init/ /
+rm -rf /init/
+# service sshd reload
+
+cd /root
+chmod 600 .ssh/*
+chmod 644 .ssh/*.pub > /dev/null 2>&1
+if [ ! -f "/root/.ssh/authorized_keys" ]; then
+cp $ssh_ed25519 .ssh/authorized_keys
+fi
+
+chmod 644 .ssh/authorized_keys
+touch .ssh/known_hosts
+chmod 644 .ssh/known_hosts
+chmod 755 .ssh
+updatedb > /dev/null 2>&1 &
+rcLocal=$(awk 'NR>1&&NF' /etc/_rc.local)
+password_file=.ssh/password
+if [ ! -f "$password_file" ]; then
+  echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1 | base64)>$password_file
+  chmod 600 $password_file
+fi
+password=$(cat $password_file)
+
+echo "root:$password" | chpasswd
+echo -e "\n\nROOT PASSWORD : $password\n\n"
+mv /etc/_rc.local /etc/rc.local && exec bash -c "$rcLocal"
