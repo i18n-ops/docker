@@ -73,7 +73,7 @@ pnpm store prune || true
 apt-get clean -y
 
 cd /
-fd __pycache__ --no-ignore -t directory | xargs -I {} rm -rf {}
+fd __pycache__ --no-ignore -t directory | grep -v /snapshot/ | xargs -I {} rm -rf {}
 
 mkdir -p /init/etc/rc.d && mv /etc/rc.d/* /init/etc/rc.d
 sed -i 's/^#*\s*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
