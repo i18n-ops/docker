@@ -7,6 +7,20 @@ source env.sh
 
 set -ex
 
+export PATH=/opt/bun/bin:$PATH
+
+cd $(mktemp -d)
+
+bun i -g @biomejs/biome prettier-pnp
+touch 1.pug
+bun x prettier-pnp --pnp @prettier/plugin-pug --stdin-filepath 1.pug || true
+rm 1.pug
+touch 1.toml
+bun x prettier-pnp --pnp prettier-plugin-toml --stdin-filepath 1.toml || true
+rm 1.toml
+
+cd $DIR
+
 eval $(rtx env)
 
 npm install -g pnpm
@@ -17,7 +31,7 @@ for pkg in $(cat ~/.default-npm-packages); do
   fi
 done
 
-pip install -r ~/.default-python-packages &
+pip install -r ~/.default-python-packages
 
 update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 1
 update-alternatives --set vi /usr/bin/nvim
@@ -25,13 +39,7 @@ update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 1
 update-alternatives --set vim /usr/bin/nvim
 update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 1
 update-alternatives --set editor /usr/bin/nvim
-curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &
-
-export PATH=/opt/bun/bin:$PATH
-
-bun i -g @biomejs/biome prettier-pnp
-bun x prettier-pnp --pnp @prettier/plugin-pug --stdin-filepath 1.pug
-bun x prettier-pnp --pnp prettier-plugin-toml --stdin-filepath 1.toml
+curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 wait
 
@@ -61,9 +69,12 @@ rm -rf /root/.cache/pip
 python -m pip cache purge
 go clean --cache
 npm cache clean -f
-pnpm store prune
+pnpm store prune || true
 apt-get clean -y
-find / | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+
+cd /
+fd __pycache__ --no-ignore -t directory | xargs -I {} rm -rf {}
+
 mkdir -p /init/etc/rc.d && mv /etc/rc.d/* /init/etc/rc.d
 sed -i 's/^#*\s*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#*\s*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config

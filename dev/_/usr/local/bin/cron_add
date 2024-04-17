@@ -1,21 +1,16 @@
 #!/usr/bin/env bash
 
+set -x
 cd $2
 
 mkdir -p /var/log/crontab
 
 cronrun=/usr/local/bin/cronrun
 
-if ! [ -f "$cronrun" ]; then
-sudo rm -rf $cronrun
-sudo wget https://raw.githubusercontent.com/wactax/ops.os/main/os/usr/local/bin/cronrun -O $cronrun
-sudo chmod +x $cronrun
-fi
-
 run="${@:2}"
 job="$1 * * $cronrun $run"
 
-crontab -l | (
+(crontab -l 2>/dev/null|| echo ) | (
   cat | grep -v -F "$run"
   echo "$job"
 ) | crontab -

@@ -29,6 +29,7 @@ Plug 'tomtom/tcomment_vim' " 批量注释
 Plug 'ziglang/zig.vim'
 Plug 'direnv/direnv.vim'
 " Plug 'rust-lang/rust.vim'
+Plug 'Exafunction/codeium.vim' " 人工智能补全
 Plug 'mfussenegger/nvim-dap',{'for':['rust']}
 Plug 'nvim-treesitter/nvim-treesitter',{'for':['rust']}
 Plug 'mrcjkb/rustaceanvim',{'for':['rust']}
@@ -65,7 +66,6 @@ Plug 'vim-scripts/taglist.vim'        " 显示Tag
 "  Plug 'urwork/ack.vim'                            " ag插件
 "Plug 'NoahTheDuke/vim-just'
 "Plug 'gkz/vim-ls',{'for':'ls'} " live script 语法高亮
-Plug 'Exafunction/codeium.vim'
 " Plug 'Exafunction/codeium.nvim'
 call plug#end()
 
@@ -135,8 +135,14 @@ let g:formatters_lua = ['stylua']
 "
 let g:formatdef_pnppug = "'bun x prettier-pnp --quiet --log-level error --pnp @prettier/plugin-pug --stdin-filepath 1.pug'"
 let g:formatters_pug= ['pnppug']
-let g:formatdef_pnptoml = "'bun x prettier-pnp --quiet --log-level error --pnp prettier-plugin-toml --stdin-filepath '.bufname('%')"
-let g:formatters_toml= ['pnptoml']
+
+let g:formatdef_fmttoml = "'bun x prettier-pnp --quiet --log-level error --pnp prettier-plugin-toml --stdin-filepath '.bufname('%')"
+
+" let g:formatdef_fmttoml = "'taplo fmt --stdin-filepath '.bufname('%')"
+
+let g:formatters_toml= ['fmttoml']
+
+
 "
 let g:formatdef_gopfmt = '"gop fmt"'
 let g:formatters_go= ['gopfmt']
@@ -463,8 +469,6 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:go_metalinter_command="golangci-lint"
-autocmd FileType python setlocal et sta sw=2 sts=2
-autocmd FileType xonsh setlocal et sta sw=2 sts=2
 
 
 "nmap ag :AG <C-R><C-W><CR>
@@ -654,3 +658,6 @@ set autoread
 " if has('nvim') "Prevent errors when using standard vim
 "     autocmd VimEnter * AutoreadLoop
 " endif
+autocmd FileType python setlocal et sta sw=2 sts=2
+autocmd FileType markdown setlocal et sta sw=2 sts=2
+autocmd FileType xonsh setlocal et sta sw=2 sts=2
