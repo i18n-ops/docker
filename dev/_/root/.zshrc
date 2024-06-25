@@ -5,7 +5,8 @@ setopt +o nomatch
 [ -z "$PS1" ] && return
 
 . ~/.zinit.zsh
-eval "$(rtx activate --quiet zsh)"
+
+eval "$(mise activate zsh)"
 
 autoload -Uz compinit && compinit -u
 

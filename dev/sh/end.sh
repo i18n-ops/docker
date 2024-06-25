@@ -21,7 +21,7 @@ rm 1.toml
 
 cd $DIR
 
-eval $(rtx env)
+eval $(mise env)
 
 npm install -g pnpm
 
@@ -43,7 +43,7 @@ curl -fLo /etc/vim/plug.vim --create-dirs https://raw.githubusercontent.com/june
 
 wait
 
-eval $(rtx env)
+eval $(mise env)
 
 vi -E -u /etc/vim/sysinit.vim +PlugInstall +qa
 vi -u /etc/vim/sysinit.vim +UpdateRemotePlugins +qa

@@ -1,4 +1,6 @@
+github.com/charmbracelet/glow@latest 
+github.com/evilmartians/lefthook@latest 
+github.com/louisun/heyspace@latest 
+github.com/muesli/duf@master 
 github.com/no-src/gofs/...@latest
-github.com/Dreamacro/clash
-github.com/louisun/heyspace
-mvdan.cc/sh/v3/cmd/shfmt
+mvdan.cc/sh/cmd/shfmt@latest 

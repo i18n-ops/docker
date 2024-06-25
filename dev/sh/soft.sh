@@ -13,7 +13,7 @@ apt-get install -y curl
 
 curl --connect-timeout 2 -m 4 -s https://t.co >/dev/null || GFW=1
 
-apt-get install -y glances unzip build-essential musl-tools g++ git bat jq libffi-dev zlib1g-dev liblzma-dev libssl-dev pkg-config git-lfs libreadline-dev libbz2-dev libsqlite3-dev libzstd-dev zsh protobuf-compiler software-properties-common wget cmake autoconf automake libtool clang sd xtail
+apt-get install -y glances unzip build-essential musl-tools g++ git bat libffi-dev zlib1g-dev liblzma-dev libssl-dev pkg-config git-lfs libreadline-dev libbz2-dev libsqlite3-dev libzstd-dev zsh protobuf-compiler software-properties-common wget cmake autoconf automake libtool clang sd xtail
 
 apt-get install -y mold
 export RUSTFLAGS="-Z threads=8 -C linker=clang -C link-arg=-fuse-ld=/usr/bin/mold"
@@ -63,12 +63,14 @@ cargo_install() {
   done
 }
 
+curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise bash
+
 # 这样方便调试, 有时候 github action 会在这一步卡死
-cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update rtx-cli wasm-bindgen-cli eza watchexec-cli fd-find wasm-pack cargo-sweep
+cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update wasm-bindgen-cli eza watchexec-cli fd-find wasm-pack cargo-sweep
 
 arch=$(uname -m)
 
-eval $(rtx env)
+eval $(mise env)
 
 rm -rf $CARGO_HOME/registry
 
@@ -77,23 +79,17 @@ cargo-cache --remove-dir all
 
 cd $CARGO_HOME
 
-rm -rf config
-ln -s ~/.cargo/config .
+rm -rf config.toml
+ln -s ~/.cargo/config.toml .
 
-$DIR/rtxi.sh nodejs
-$DIR/rtxi.sh golang
-$DIR/rtxi.sh python
+$DIR/misei.sh nodejs
+$DIR/misei.sh golang
+$DIR/misei.sh python
 
-eval $(rtx env)
+eval $(mise env)
 
 [ $GFW ] &&
   go env -w GOPROXY=https://goproxy.cn,direct
-
-go install github.com/evilmartians/lefthook@latest &
-go install github.com/charmbracelet/glow@latest &
-go install mvdan.cc/sh/cmd/shfmt@latest &
-go install github.com/muesli/duf@master &
-go install github.com/louisun/heyspace@latest &
 
 rm -rf czmod
 if ! command -v czmod &>/dev/null; then
@@ -105,8 +101,8 @@ fi
 
 wait
 cd ..
-
-[ -f /opt/bun/bin/bun ] || $CURL https://bun.sh/install | bash
+export BUN_INSTALL=/opt/bun
+[ -f $BIN_INSTALL/bin/bun ] || $CURL https://bun.sh/install | bash
 
 cd /usr/local
 wget https://$([ $GFW ] && echo gitee.com/mirrors/fzf/raw || echo raw.githubusercontent.com/junegunn/fzf)/master/install -O fzf.install.sh

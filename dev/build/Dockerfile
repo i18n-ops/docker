@@ -6,7 +6,7 @@ RUN apt-get update
 
 ADD sh/env.sh sh/
 ADD sh/soft.sh sh/
-ADD sh/rtxi.sh sh/
+ADD sh/misei.sh sh/
 
 RUN /sh/soft.sh
 

@@ -1,12 +1,11 @@
 #!/usr/bin/env coffee
 
 > zx/globals:
-  @3-/uridir
+
+ROOT = import.meta.dirname
 
 < default main = =>
-  ROOT = uridir(import.meta)
   cd ROOT
-
   await $"ls #{ROOT}"
   await $'pwd'
   return

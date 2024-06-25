@@ -4,8 +4,8 @@ if [[ ":$LD_LIBRARY_PATH:" != *":/usr/local/lib:"* ]]; then
   export LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 fi
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin:/opt/bun/bin
 export BUN_INSTALL=/opt/bun
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin:$BUN_INSTALL/bin
 export GOPATH=/usr
 export PAGER=bat
 export PNPM_HOME="/opt/pnpm"
@@ -15,7 +15,7 @@ set -o allexport
 . /etc/run_dir.sh /etc/profile.d
 set +o allexport
 
-export RTX_DATA_DIR=/opt/rtx
-export RTX_CACHE_DIR=/cache/rtx
+export MISE_DATA_DIR=/opt/mise
+export MISE_CACHE_DIR=/cache/mise
 
-eval $(rtx env)
+eval $(mise env)

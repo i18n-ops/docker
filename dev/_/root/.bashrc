@@ -2,7 +2,7 @@ if [ -f ~/.bash_aliases ]; then
 . ~/.bash_aliases
 fi
 
-eval "$(rtx activate --quiet bash)"
+eval "$(mise activate --quiet bash)"
 
 [ -z "$PS1" ] && return
 

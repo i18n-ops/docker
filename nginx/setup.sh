@@ -313,7 +313,18 @@ if [ -d "$BUILDDIR/nginx" ]; then
   # touch $BUILDDIR/boringssl/.openssl/include/openssl/ssl.h || error_exit "Failed to touch $BUILDDIR/boringssl/.openssl/include/openssl/ssl.h."
   cd $BUILDDIR/nginx || error_exit "Failed to make $BUILDDIR/nginx current directory."
   make -j $(nproc) || error_exit "Error compiling nginx."
+
+  if [ -d "/etc/nginx" ]; then
+    rm -rf /etc/nginx.bak
+    mv /etc/nginx /etc/nginx.bak
+  fi
+
   make install || error_exit "Error installing nginx."
+
+  if [ -d "/etc/nginx.bak" ]; then
+    rm -rf /etc/nginx
+    mv /etc/nginx.bak /etc/nginx
+  fi
 else
   error_exit "Directory $BUILDDIR/nginx does not exist."
 fi
