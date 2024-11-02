@@ -71,7 +71,7 @@ else
 fi
 
 # 这样方便调试, 有时候 github action 会在这一步卡死
-cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update wasm-bindgen-cli eza watchexec-cli fd-find wasm-pack cargo-sweep
+cargo_install atuin stylua erdtree cargo-cache tokei diskus cargo-edit cargo-update wasm-bindgen-cli eza watchexec-cli fd-find wasm-pack cargo-sweep git-delta
 
 arch=$(uname -m)
 

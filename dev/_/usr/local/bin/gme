@@ -23,8 +23,10 @@ git pull origin $branch
 
 if [ "$branch" != "main" ]; then
 git add . && git commit -m "$msg"  || true
-git fetch origin main
-git merge origin/main || true
+git checkout main
+git pull 
+git checkout $branch
+git merge main
 hash=$(git log --format=%H -1 main)
 git reset --soft $hash
 git add . && git commit -m "$msg"  || true
