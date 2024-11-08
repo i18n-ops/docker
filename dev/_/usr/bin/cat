@@ -1,2 +1,0 @@
-#!/usr/bin/bash
-exec /usr/bin/batcat -pp ${@:1:$#}

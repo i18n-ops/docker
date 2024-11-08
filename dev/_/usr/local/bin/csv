@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-perl -pe 's/((?<=,)|(?<=^)),/ ,/g;' "$@" | column -t -s, | exec less  -F -S -X -K
