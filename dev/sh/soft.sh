@@ -19,7 +19,7 @@ apt-get install -y mold
 export RUSTFLAGS="-Z threads=8 -C linker=clang -C link-arg=-fuse-ld=/usr/bin/mold"
 
 chsh -s /bin/zsh root
-apt remove --purge --assume-yes snapd gnome-software-plugin-snap
+apt remove --purge --assume-yes snapd gnome-software-pmrlugin-snap
 apt autoremove -y
 git lfs install
 
